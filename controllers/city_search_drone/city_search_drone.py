@@ -1,13 +1,10 @@
 from controller import Robot
 import math, sys
-import numpy as np            
+import numpy as np
+import csv
+import os
 from ultralytics import YOLO
 
-#DELETE THESE 
-# from controller import Keyboard
-# import cv2
-# import time
-#-------------------------------
 def clamp(v, mn, mx):
     return max(mn, min(v, mx))
 
@@ -34,10 +31,6 @@ class Drone(Robot):
         self.ts = int(self.getBasicTimeStep())
         print(f"[DRONE {ID}] INITIALIZING...")
 
-        # --- KEYBOARD SETUP --- DELETEEEEEEEEEEEEEEEEEEEE
-        # self.keyboard = Keyboard()
-        # self.keyboard.enable(self.ts)  # <--- 2. Enable Keyboard
-        
         # --- SENSORS SETUP ---
         # YOLO model load
         try:
@@ -84,16 +77,33 @@ class Drone(Robot):
 
         # generate zig-zag pattern
         self.search_wp = self.generate_zigzag(ID)
+        
+        # --- LOGGING SETUP ---
+        # 1. Save Waypoints immediately
+        self.log_dir = os.path.dirname(__file__)
+        wp_file = os.path.join(self.log_dir, f"drone_{ID}_waypoints.csv")
+        try:
+            with open(wp_file, 'w', newline='') as f:
+                writer = csv.writer(f)
+                writer.writerow(["Index", "X", "Y"])
+                for idx, (wx, wy) in enumerate(self.search_wp):
+                    writer.writerow([idx, wx, wy])
+            print(f"[DRONE {ID}] Waypoints saved to {wp_file}")
+        except Exception as e:
+            print(f"[DRONE {ID}] Error saving waypoints: {e}")
+
+        # 2. Prepare GPS Log
+        self.gps_file = os.path.join(self.log_dir, f"drone_{ID}_gps_log.csv")
+        with open(self.gps_file, 'w', newline='') as f:
+            f.write("Time,X,Y,Z\n") # Header
+            
+        self.last_log_time = -60.0 # Force log at 0.0s
+        self.last_trail_time = 0.0
+        
         print(f"[DRONE {ID}] READY.")
 
     def scan_for_target(self):
-        # --- SCREENSHOT IMAGE FROM CAMERA --- DELEEETEEEEEEEEEEEEEEEE
-        # delete later
-        # key = self.keyboard.getKey()
-        #if key == Keyboard.UP:
-        #    print(f"[DRONE {self.ID}] SNAPSHOT TAKEN!")
-        #    self.camera.saveImage(f"drone_{self.ID}_{int(time.time())}.jpg", 100) # Built-in Webots function
-            
+
         # YOLO INFERENCE
         if not self.vision_ready: return False
         
@@ -127,7 +137,7 @@ class Drone(Robot):
                 target_r, target_g, target_b = 0, 85, 255
                 
                 # Allow some wiggle room (tolerance) because lighting changes colors
-                tolerance = 60 
+                tolerance = 85 
 
                 # Check difference
                 diff = abs(int(r_val) - target_r) + \
@@ -143,12 +153,11 @@ class Drone(Robot):
         return False
 
     def generate_zigzag(self, drone_id):
-        MARGIN        = 10.0
-        STRIP_SPACING = 30.0
+        MARGIN        = 5.0
+        STRIP_SPACING = 10.0
         
-        # This angle tilts the path. 
-        # POSITIVE = Counter-Clockwise, NEGATIVE = Clockwise
-        ROTATION_ANGLE_DEG = -25.235
+        # This angle tilts the path 
+        ROTATION_ANGLE_DEG = -24.9
         theta = math.radians(ROTATION_ANGLE_DEG)
         c, s = math.cos(theta), math.sin(theta)
 
@@ -170,13 +179,12 @@ class Drone(Robot):
         direction = 0
         
         while y <= ymax:
-            # 2. Determine the "straight" point
             if direction == 0: 
                 px, py = xmax, y
             else:              
                 px, py = xmin, y
             
-            # 3. ROTATE the point to match the city tilt
+            # ROTATE the point to match the city tilt
             # Formula: x' = x*cos - y*sin, y' = x*sin + y*cos
             rx = px * c - py * s
             ry = px * s + py * c
@@ -257,6 +265,27 @@ class Drone(Robot):
                     print(f"[DRONE {self.ID}] !!! TARGET CAR FOUND !!!")
                     msg = f"FOUND {x:.2f} {y:.2f}"
                     self.emitter.send(msg.encode())
+
+            # --- LOGGING & TRAIL UPDATES ---
+            current_time = self.getTime()
+            
+            # 1. GPS LOGGING (Every minute)
+            if current_time - self.last_log_time >= 60.0:
+                try:
+                    with open(self.gps_file, 'a', newline='') as f:
+                        writer = csv.writer(f)
+                        writer.writerow([f"{current_time:.2f}", f"{x:.2f}", f"{y:.2f}", f"{z:.2f}"])
+                    self.last_log_time = current_time
+                except Exception as e:
+                    print(f"[DRONE {self.ID}] GPS log error: {e}")
+
+            # 2. TRAIL DRAWING (Every 0.5s to Supervisor)
+            if current_time - self.last_trail_time >= 0.5:
+                # Send: TRAIL <ID> <X> <Y> <Z>
+                # Using 2 decimal places to save bandwidth/string length, enough for visual
+                msg = f"TRAIL {self.ID} {x:.2f} {y:.2f} {z:.2f}" 
+                self.emitter.send(msg.encode())
+                self.last_trail_time = current_time
 
             # --- NAVIGATION UPDATE ---
             t = self.getTime()

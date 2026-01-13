@@ -33,8 +33,8 @@ WorldInfo {
   lineScale 2
 }
 Viewpoint {
-  orientation -0.14406082422380587 0.9379911932077138 0.3153077867556187 0.9065698969930577
-  position -553.5135097844586 -47.643892143119864 913.4615963542861
+  orientation 0.11327729626931418 0.8828562778866756 -0.4557774092098017 0.5487844308473571
+  position -226.89062009253658 179.89836177488633 9.42144539068532
   near 3
 }
 TexturedBackground {
@@ -54,7 +54,6 @@ Floor {
     metalness 0
   }
 }
-
 DEF DRONE1 Mavic2Pro {
   translation -211.94 178.53 0.065
   name "DRONE1"
@@ -213,105 +212,105 @@ DEF Parked_Cars Group {
       translation -220.32 205.47 0.4
     }
     TeslaModel3Simple {
-  translation -73.2693 115.553 0.4
-  rotation 0 0 1 2.8798
-  name "vehicle(11)"
-}
-LincolnMKZSimple {
-  translation -6.96 -33.14 0.4
-  name "vehicle(10)"
-}
-TruckSimple {
-  translation 87.5152 -105.388 0.5
-  rotation 0 0 1 -0.523595307179586
-  name "vehicle(9)"
-}
-MercedesBenzSprinterSimple {
-  translation 137.719 123.221 0.4
-  rotation 0 0 1 -0.523595307179586
-  color 0 0 0
-}
-BmwX5Simple {
-  translation -87.73 -25.36 0.4
-  name "vehicle(5)"
-}
-BmwX5Simple {
-  translation -124.771 160.415 0.44
-  color 0 0 0
-  name "vehicle_1"
-}
-BmwX5Simple {
-  translation 118.778 -35.159 0.44
-  color 1 0.666667 0
-  name "vehicle_2"
-}
-MercedesBenzSprinterSimple {
-  translation -80.9706 -113.906 0.44
-  color 0.3 0.7 0.9
-  name "vehicle_3"
-}
-TeslaModel3Simple {
-  translation 40.03575 85.630882 0.44
-  color 0.6 0.4 0.2
-  name "vehicle_4"
-}
-BmwX5Simple {
-  translation 199.714 177.062 0.44
-  rotation 0 0 1 -0.523595307179586
-  color 0 0.333333 1
-  name "vehicle_5"
-}
-MercedesBenzSprinterSimple {
-  translation -43.08216 37.015221 0.44
-  color 0.2 0.8 0.3
-  name "vehicle_6"
-}
-ToyotaPriusSimple {
-  translation 29.192119 -242.632389 0.44
-  color 0.5 0.5 0.7
-  name "vehicle_7"
-}
-ToyotaPriusSimple {
-  translation -86.202681 -191.123726 0.44
-  color 0.333333 0.333333 0.498039
-  name "vehicle_8"
-}
-BmwX5Simple {
-  translation -203 -137 0.44
-  color 0.4 0.9 0.2
-  name "vehicle_9"
-}
-CitroenCZeroSimple {
-  translation 101.992 59.9513 0.44
-  color 0.8 0.6 0.1
-  name "vehicle_10"
-}
-LincolnMKZSimple {
-  translation 66.170538 -173.560143 0.44
-  color 0.1 0.5 0.9
-  name "vehicle_11"
-}
-MercedesBenzSprinterSimple {
-  translation -103.316 69.3189 0.44
-  color 0.6 0.2 0.8
-  name "vehicle_12"
-}
-ToyotaPriusSimple {
-  translation -137.588011 3.062956 0.44
-  color 0.3 0.9 0.4
-  name "vehicle_13"
-}
-TruckSimple {
-  translation 186.613 101.649 0.44
-  rotation 0 0 1 -0.523595307179586
-  color 0.9 0.4 0.7
-  name "vehicle_14"
-}
-MercedesBenzSprinterSimple {
-  translation -309.247245 -84.972878 0.44
-  color 0.2 0.7 0.6
-  name "vehicle_15"
-}
+      translation -73.2693 115.553 0.4
+      rotation 0 0 1 2.8798
+      name "vehicle(11)"
+    }
+    LincolnMKZSimple {
+      translation -6.96 -33.14 0.4
+      name "vehicle(10)"
+    }
+    TruckSimple {
+      translation 87.5152 -105.388 0.5
+      rotation 0 0 1 -0.523595307179586
+      name "vehicle(9)"
+    }
+    MercedesBenzSprinterSimple {
+      translation 137.719 123.221 0.4
+      rotation 0 0 1 -0.523595307179586
+      color 0 0 0
+    }
+    BmwX5Simple {
+      translation -87.73 -25.36 0.4
+      name "vehicle(5)"
+    }
+    BmwX5Simple {
+      translation -124.771 160.415 0.44
+      color 0 0 0
+      name "vehicle_1"
+    }
+    BmwX5Simple {
+      translation 118.778 -35.159 0.44
+      color 1 0.666667 0
+      name "vehicle_2"
+    }
+    MercedesBenzSprinterSimple {
+      translation -80.9706 -113.906 0.44
+      color 0.3 0.7 0.9
+      name "vehicle_3"
+    }
+    TeslaModel3Simple {
+      translation 40.03575 85.630882 0.44
+      color 0.6 0.4 0.2
+      name "vehicle_4"
+    }
+    BmwX5Simple {
+      translation 178.756 -93.3237 0.44
+      rotation 0 0 1 2.0944
+      color 0 0.333333 1
+      name "vehicle_5"
+    }
+    MercedesBenzSprinterSimple {
+      translation -43.08216 37.015221 0.44
+      color 0.2 0.8 0.3
+      name "vehicle_6"
+    }
+    ToyotaPriusSimple {
+      translation 29.192119 -242.632389 0.44
+      color 0.5 0.5 0.7
+      name "vehicle_7"
+    }
+    ToyotaPriusSimple {
+      translation -86.202681 -191.123726 0.44
+      color 0.333333 0.333333 0.498039
+      name "vehicle_8"
+    }
+    BmwX5Simple {
+      translation -203 -137 0.44
+      color 0.4 0.9 0.2
+      name "vehicle_9"
+    }
+    CitroenCZeroSimple {
+      translation 101.992 59.9513 0.44
+      color 0.8 0.6 0.1
+      name "vehicle_10"
+    }
+    LincolnMKZSimple {
+      translation 66.170538 -173.560143 0.44
+      color 0.1 0.5 0.9
+      name "vehicle_11"
+    }
+    MercedesBenzSprinterSimple {
+      translation -103.316 69.3189 0.44
+      color 0.6 0.2 0.8
+      name "vehicle_12"
+    }
+    ToyotaPriusSimple {
+      translation -137.588011 3.062956 0.44
+      color 0.3 0.9 0.4
+      name "vehicle_13"
+    }
+    TruckSimple {
+      translation 186.613 101.649 0.44
+      rotation 0 0 1 -0.523595307179586
+      color 0.9 0.4 0.7
+      name "vehicle_14"
+    }
+    MercedesBenzSprinterSimple {
+      translation -309.247245 -84.972878 0.44
+      color 0.2 0.7 0.6
+      name "vehicle_15"
+    }
   ]
 }
 DEF Parking Group {
