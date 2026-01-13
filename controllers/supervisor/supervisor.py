@@ -40,7 +40,7 @@ class CitySupervisor(Supervisor):
                     # Parse the location sent by the drone
                     parts = msg.split()
                     sx = str(float(parts[1])+20.0)
-                    sy = str(float(parts[2])-29.0)
+                    sy = str(float(parts[2])-20.0)
                     
                     print(f"Supervisor received FOUND at: {sx}, {sy}")
                     print("Broadcasting FORMATION command to all drones.")
