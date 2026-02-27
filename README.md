@@ -1,7 +1,7 @@
 # Webots City Search Drone Swarm with YOLOv8
-<video src="demo.mp4" width="100%" controls></video>
 
-[Watch the Demo Video](demo.mp4)
+![simulation preview gif](Timeline1.gif)
+
 ## Description
 This project simulates a swarm of 4 drones in a Webots city environment performing a coordinated search and rescue mission. The drones use **YOLOv8** for real-time object detection to locate a specific target (a blue car) within the city. Upon detection, the finding drone broadcasts the coordinates to the swarm, and a supervisor controller coordinates the drones to form a formation above the target.
 
